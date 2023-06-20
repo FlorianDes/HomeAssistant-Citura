@@ -1,6 +1,7 @@
 {
     "domain": "citura",
     "name": "Citura",
+    "version": "0.0.1",
     "codeowners": [
         "FlorianDes"
     ],

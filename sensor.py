@@ -82,7 +82,6 @@ class CituraSensor(SensorEntity):
 
         self._state = datetime.fromisoformat(
             self._info['time'][0]['expected_time'])
-        print(self._info)
 
     @property
     def extra_state_attributes(self):

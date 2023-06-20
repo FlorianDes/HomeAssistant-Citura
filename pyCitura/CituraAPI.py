@@ -76,7 +76,6 @@ class CituraAPI:
     def getNearest(self, latitude, longitude):
         location = "/Station/getNearest.json"
         params = {"latitude": latitude, "longitude": longitude}
-        print(params)
         response = self.sendRequest(location, params)
         if not 'response' in response or not 'nearest' in response['response']:
             return {}
@@ -85,22 +84,18 @@ class CituraAPI:
 
     def getHoraire(self, station, line, direction=1, dateWhen=None):
         station = station.upper()
-        print(station)
         location = "/Horaire/getHoraire.json"
         if not dateWhen:
             dateWhen = datetime.now()
 
         s = self.getStationId(station, line)
-        print(s)
 
         params = {"date": dateWhen.isoformat(),
                   "line": line,
                   "stop_id": s[str(direction)][0] if str(direction) in s else s['stop_id'],
                   "direction": direction}
-        print(params)
 
         response = self.sendRequest(location, params)
-        print(response)
         if not 'response' in response:
             return []
         response = response['response']
@@ -144,8 +139,7 @@ class CituraAPI:
 
         response = self.sendRequest(location, params)
         response = response['response']
-        print(response)
-        # for travel in response:
+
         return [{
             'itinary': [{'start': elem['start'],
                          'start_time': elem['startTime'],
@@ -220,14 +214,12 @@ class CituraAPI:
             #     BASE_URL+location,
             #     fields=params,
             #     headers=headers)
-            print(response.url)
             result = response.json()
         except requests.exceptions.ReadTimeout:
             return {}
         except json.decoder.JSONDecodeError:
             return {}
         if 'response' in result and 'errorMessage' in result['response']:
-            print(result['response']['errorMessage'])
             return {}
         return result
 
