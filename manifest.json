@@ -1,0 +1,12 @@
+{
+    "domain": "citura",
+    "name": "Citura",
+    "codeowners": [
+        "FlorianDes"
+    ],
+    "dependencies": [],
+    "documentation": "",
+    "integration_type": "hub",
+    "iot_class": "cloud_polling",
+    "requirements": []
+}
