@@ -79,14 +79,16 @@ class CituraSensor(SensorEntity):
         """Get the latest data and update the state."""
         self._info = self._data.getSIRI(
             line=self._route, stop_point=self._stop, count=3)
-
-        self._state = datetime.fromisoformat(
+        if not self._info['empty'] and not self._info['error']:
+            self._state = datetime.fromisoformat(
             self._info['time'][0]['expected_time'])
+        else:
+            self._state = None
 
     @property
     def extra_state_attributes(self):
         """Return the state attributes."""
-        if self._info:
+        if self._info and not self._info['empty'] and not self._info['error']:
             ret = {
                 'line': self._info['time'][0]['line'],
                 'destination': self._info['time'][0]['destination'],
